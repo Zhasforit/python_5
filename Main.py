@@ -36,11 +36,6 @@ class Main(QDialog):
             file = open(path_to_file, 'r')
 
             data = file.readlines()
-            # выводим считанные данные на экран
-            self.plainTextEdit.appendPlainText("Полученные данные: ")
-
-            for lines in data:
-                self.plainTextEdit.appendPlainText(lines.strip('\n'))
 
             global list_of_numbers
             list_of_numbers = []
@@ -48,6 +43,20 @@ class Main(QDialog):
             for lines in data:
                 lineSplit = lines.split()
                 list_of_numbers.append(lineSplit)
+
+            # выводим считанные данные на экран
+            self.plainTextEdit.appendPlainText("Полученные данные: \n")
+
+            for lines in data:
+                lines.strip('\n')
+
+            for lists in list_of_numbers:
+                for i in lists:
+                    new_str = "{:5}".format(str(i))
+                    self.plainTextEdit.insertPlainText(new_str)
+                self.plainTextEdit.insertPlainText("\n")
+
+
 
     def process_data(self):
         if validation_of_data():
@@ -125,7 +134,7 @@ def validation_of_data():
     lenth_list = 0
     for lists in list_of_numbers:
         lenth_list += len(lists)
-    if lenth_list == 30:
+    if lenth_list == 9:
         for lists in list_of_numbers:
             for i in lists:
                 try:
